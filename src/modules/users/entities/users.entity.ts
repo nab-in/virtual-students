@@ -1,4 +1,11 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { generateUid } from '../../../core/helpers/makeuid';
 
 @Entity('user', { schema: 'public' })
@@ -36,6 +43,10 @@ export class User {
     name: 'password',
   })
   password: string;
+
+  @ManyToMany(() => Comment, (comment) => comment, { eager: true })
+  @JoinTable({ name: 'userreplies' })
+  comments: Comment[];
 
   @BeforeInsert()
   beforeUpdateTransaction() {
