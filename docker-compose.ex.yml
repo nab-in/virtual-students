@@ -1,0 +1,54 @@
+  
+version: '3.2'
+
+services:
+  student-virtual:
+    container_name: student-db
+    shm_size: 5gb
+    ports:
+      - "5434:5432"
+    build: 
+      context: .
+      dockerfile: Dockerfile-postgres
+    image: student/postgres:1.0.0
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+    volumes:
+      - ./files/db:/tmp/db
+      - postdb-data:/var/lib/postgresql/data
+    networks: 
+      - backend
+  nginx:
+    container_name: student-nginx
+    build: 
+      context: .
+      dockerfile: Dockerfile-nginx
+    image: nginx/student-nginx:1.0.0
+    ports:
+      - "5000:3000"
+    restart: always
+    networks: 
+      - backend
+  api:
+    container_name: student-api
+    image: student/api
+    build: .
+    restart: always
+    command: npm run start:dev
+    volumes:
+      - type: bind
+        source: ./src
+        target: /home/app/src
+      - type: bind
+        source: ./files
+        target: /home/app/files
+    networks: 
+      - backend
+networks:
+  backend:
+    driver: "bridge"
+volumes:
+  postdb-data:
+    driver: local
