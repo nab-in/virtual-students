@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RepliesController } from 'src/controllers/replies/replies.controller';
-import { RepliesService } from 'src/services/replies/replies.service';
+import { RepliesController } from 'src/modules/replies/controllers/replies.controller';
+import { RepliesService } from 'src/modules/replies/services/replies.service';
 
 @Module({
   providers: [RepliesService],
