@@ -6,6 +6,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Comment } from '../../comments/entities/comments.entity';
 import { generateUid } from '../../../core/helpers/makeuid';
 
 @Entity('user', { schema: 'public' })
