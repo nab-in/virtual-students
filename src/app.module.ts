@@ -4,7 +4,7 @@ import { CommentsModule } from './modules/comments/comments.module';
 import { RepliesModule } from './modules/replies/replies.module';
 import { UsersModule } from './modules/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './config/typeorm.config';
+import { typeOrmConfig } from '../files/config/typeorm.config';
 
 @Module({
   imports: [

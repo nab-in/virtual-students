@@ -38,3 +38,6 @@ docker-compose.yml
 
 # Enviroment variable
 .env
+
+#Ignore files folder
+files
