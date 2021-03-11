@@ -9,7 +9,7 @@ import {
 import { Comment } from '../../comments/entities/comments.entity';
 import { generateUid } from '../../../core/helpers/makeuid';
 
-@Entity('user', { schema: 'public' })
+@Entity('student', { schema: 'public' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
