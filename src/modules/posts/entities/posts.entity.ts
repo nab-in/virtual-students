@@ -1,4 +1,4 @@
-import { Reply } from 'src/modules/replies/entities/replies.entity';
+import { Reply } from '../../replies/entities/replies.entity';
 import {
   BaseEntity,
   Column,
@@ -13,7 +13,7 @@ export class Post extends BaseEntity {
   id: number;
 
   @Column()
-  uuid: string;
+  uid: string;
 
   @Column()
   body: string;
@@ -24,7 +24,6 @@ export class Post extends BaseEntity {
   @Column()
   attachment: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @OneToMany((type) => Reply, (reply) => reply.post, { eager: true })
+  @OneToMany(() => Reply, (reply) => reply.post, { eager: true })
   replies: Reply[];
 }

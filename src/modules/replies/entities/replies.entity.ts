@@ -1,6 +1,8 @@
+import { generateUid } from 'src/core/helpers/makeuid';
 import { Post } from 'src/modules/posts/entities/posts.entity';
 import {
   BaseEntity,
+  BeforeInsert,
   Column,
   Entity,
   ManyToOne,
@@ -10,13 +12,13 @@ import {
   TreeParent,
 } from 'typeorm';
 
-@Entity()
+@Entity('reply')
 export class Reply extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  uuid: string;
+  uid: string;
 
   @Column()
   body: string;
@@ -24,8 +26,7 @@ export class Reply extends BaseEntity {
   @Column()
   like: number;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @ManyToOne((type) => Post, (post) => post.replies, { eager: false })
+  @ManyToOne(() => Post, (post) => post.replies, { eager: false })
   post: Post;
 
   @TreeChildren()
@@ -34,7 +35,10 @@ export class Reply extends BaseEntity {
   @TreeParent()
   parent: Reply;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @OneToMany((type) => Reply, (reply) => reply.parent, { onDelete: 'CASCADE' })
+  @OneToMany(() => Reply, (reply) => reply.parent, { onDelete: 'CASCADE' })
   replies: Reply[];
+  @BeforeInsert()
+  beforeInsertTransaction() {
+    this.uid = generateUid();
+  }
 }
