@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   BeforeInsert,
   Column,
   Entity,
@@ -10,7 +11,7 @@ import { Comment } from '../../comments/entities/comments.entity';
 import { generateUid } from '../../../core/helpers/makeuid';
 
 @Entity('student', { schema: 'public' })
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
