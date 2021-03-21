@@ -20,6 +20,8 @@ export class Comment {
     name: 'uid',
   })
   uid: string;
+  @Column()
+  body: string;
 
   @ManyToMany(() => User, (user) => user.comments)
   @JoinTable({ name: 'userreplies' })
